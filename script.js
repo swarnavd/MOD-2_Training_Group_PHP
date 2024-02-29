@@ -1,29 +1,23 @@
-var fname=document.getElementById("fname");
-var lname=document.getElementById("lname");
+var fName=document.getElementById("fName");
+var lName=document.getElementById("lName");
 var full=document.getElementById("full");
 trimmed2="";
-fname.addEventListener('input', function() {
-    if (fname.value.length > 20 ||lname.value.length > 20 ) {
-        full.value="";
+function lengthCheck(){
+    if (fName.value.length > 20 ||lName.value.length > 20 ) {
+        full.value = "";
         return 0;
       }
-    else{
-        const value=fname.value;
-    trimmed1=value.replace(/[^a-zA-Z]/g, '');
-    // full.value = trimmed1;
+    
+}
+fName.addEventListener('input',function(){
+    lengthCheck();
+    const value=fName.value;
+    trimmed1 = value.replace(/[^a-zA-Z]/g, '');
     full.value = trimmed1+" "+trimmed2;
-    }
-    
 });
-lname.addEventListener('input', function() {
-    if (fname.value.length > 20 ||lname.value.length > 20 ) {
-        full.value="";
-        return 0;
-      }
-    else{
-        const value=lname.value;
-        trimmed2=value.replace(/[^a-zA-Z]/g, '');
-        full.value = trimmed1+" "+trimmed2;
-    }
-    
+lName.addEventListener('input',function(){
+    lengthCheck();
+    const value=lName.value;
+    trimmed2=value.replace(/[^a-zA-Z]/g, '');
+    full.value = trimmed1+" "+trimmed2;
 });
