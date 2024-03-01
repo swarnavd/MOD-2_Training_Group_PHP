@@ -2,13 +2,13 @@
     $fullName = "";
     $flag = 0;
     $trimmed = "";
-    $namePattern='/^[a-zA-Z]+$/';
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
+    $namePattern = '/^[a-zA-Z]+$/';
+    if ($_SERVER[ 'REQUEST_METHOD'] == 'POST' && isset ($_POST['Submit'])) {
         $fName = $_POST['fName'];
         $lName = $_POST['lName'];
         $fullName = $fName." ".$lName;
-        $trimmed = preg_replace($namePattern, " ", $fullName);
-        if (preg_match($namePattern,$fName) && preg_match($namePattern,$lName)) {
+        $trimmed = preg_replace ($namePattern, " ", $fullName);
+        if (preg_match ($namePattern,$fName) && preg_match ($namePattern,$lName)) {
             $flag = 1;
         }
     }
@@ -23,7 +23,7 @@
 </head>
 <body>
     <div>
-    <form method = "post" action = "form.php" enctype = "multipart/form-data">
+    <form method = "post" action = "form.php">
         <label for = "firstname">First Name</label>
         <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." maxlength = "20">
         <label for = "lastname">Last Name</label>
