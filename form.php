@@ -2,7 +2,7 @@
     $fullName = "";
     $flag = 0;
     $trimmed = "";
-    $namePattern='/^[a-zA-Z]+$/';
+    $namePattern = '/^[a-zA-Z]+$/';
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
         $fName = $_POST['fName'];
         $lName = $_POST['lName'];
@@ -45,25 +45,7 @@
         }
     }
 ?>
-<?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])){
-        $subject=$_POST['marks'];
-        $input=$_POST['marks'];
-        $marksPattern="^[A-Za-z0-9|]+$";
-        $marksFlag=0;
-        
-            $marksFlag=1;
-            // $subjectMarks=explode('\n\r',$subject);
-            // echo $subjectMarks;
-            $subjectArray=preg_split('~\R+~', $subject);
-            // print_r($subjectArray);
-            foreach($subjectArray as $x){
-                
-            }
 
-        
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,14 +83,45 @@
                 return 0;
                 }
                 if ($flag == 1) {
-                    echo "Hello" . $fullName;
+                    echo "Hello " .  $fullName;
                 }
                 else {
                     echo "first name and last name should be contain only alphabets";
                 }
         }
     ?>
-    </p> 
+    </p>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
+        $subject = $_POST['marks'];
+        $input = $_POST['marks'];
+        $subjectPattern = "/^[A-Za-z]+$/";
+        $marksPattern = "/^[0-9\s]+$/";
+        $subjectArray = preg_split('~\R+~', $subject);
+        echo "<table border = '1'>
+        <tr>
+        <th>Subject</th>
+        <th>Marks</th>
+        </tr>";
+        foreach($subjectArray as $x){
+            $subjectMarks = explode('|',$x);
+            $subjectActual = current($subjectMarks);
+            $marksActual = end($subjectMarks);
+            if (!preg_match ($subjectPattern,$subjectActual)) {
+                echo "Subject Pattern not matched";
+            }
+            elseif (!preg_match ($marksPattern,$marksActual)) {
+                echo "Marks pattern not matched.";
+            }
+            else {
+                echo "<tr>";
+                echo "<td>" . $subjectActual . "</td>";
+                echo "<td>" . $marksActual . "</td>";
+                        echo "</tr>";
+            }
+        }
+    }
+?> 
     </div>
     <script type="text/javascript" src="script.js"></script>
 </body>
