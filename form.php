@@ -3,7 +3,7 @@
     $flag = 0;
     $trimmed = "";
     $namePattern = '/^[a-zA-Z]+$/';
-    if ($_SERVER[ 'REQUEST_METHOD'] == 'POST' && isset ($_POST['Submit'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset ($_POST['Submit'])) {
         $fName = $_POST['fName'];
         $lName = $_POST['lName'];
         $fullName = $fName." ".$lName;
@@ -40,7 +40,7 @@
                 echo "limit exceeds";
                 return 0;
                 }
-                if ($flag == 1) {
+                if ($flag) {
                     echo "Hello " . $fullName;
                 }
                 else {
