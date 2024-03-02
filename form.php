@@ -1,20 +1,15 @@
 <?php
     $fullName = "";
-    $flag = 0;
     $trimmed = "";
-    $namePattern='/^[a-zA-Z]+$/';
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
         $fName = $_POST['fName'];
         $lName = $_POST['lName'];
         $fullName = $fName." ".$lName;
         $trimmed = preg_replace($namePattern, " ", $fullName);
-        if (preg_match($namePattern,$fName) && preg_match($namePattern,$lName)) {
-            $flag = 1;
-        }
     }
 ?>
 <?php
-    if(isset($_POST['Submit'])){
+    if (isset($_POST['Submit'])) {
         $fileDestination = "";
         $file = $_FILES['image'];
         $fileName = $_FILES['image']['name'];
@@ -26,14 +21,14 @@
         $fileExt = explode('.',$fileName);
         $fileActualExt = strtolower(end($fileExt));
         if (in_array($fileActualExt,$allowed)) {
-            if ($fileError===0) {
-                if ($fileSize>50000000) {
+            if ($fileError === 0) {
+                if ($fileSize > 50000000) {
                     echo "file is too big";
                 }
                 else {
-                    $newFile=uniqid('',true).".".$fileActualExt;
-                    $fileDestination='uploads/'.$newFile;
-                    move_uploaded_file($fileTmpName,$fileDestination);
+                    $newFile=uniqid('', true).".".$fileActualExt;
+                    $fileDestination='uploads/' . $newFile;
+                    move_uploaded_file($fileTmpName, $fileDestination);
                 }
             }
             else {
@@ -51,44 +46,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form</title>
-    <link rel = "stylesheet" href = "style.css">
+    <link rel = "stylesheet" href = "./CSS/style.css">
 </head>
 <body>
     <div>
-    <form method = "post" action = "form.php" enctype = "multipart/form-data">
-        <label for = "firstname">First Name</label>
-        <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." maxlength = "20">
-        <label for = "lastname">Last Name</label>
-        <input type = "text" id = "lName" name = "lName" placeholder = "Your last name.." maxlength = "20">
-        <label for = "fullname">Full Name</label>
-        <input type = "text" id = "full" name = "fullName"  disabled>
-        <input type = "submit" name = "Submit">
-        <label for = "image">Upload a image</label>
-        <input type = "file" id = "image" name = "image" accept = "image/*">
-    </form>
-     <img src = "<?php
-                if (isset($_POST['Submit'])) {
-                    echo $fileDestination;
-                }
-        ?>" class = "myimg">
-    <p class = "check">
-    <?php
-        if (isset($_POST['Submit'])) {
-            $maxLength = 20;
-            if (strlen($fName) > $maxLength || strlen($lName) > $maxLength) {
-                echo "limit exceeds";
-                return 0;
-                }
-                if ($flag == 1) {
-                    echo "Hello" . $fullName;
+        <form method = "post" action = "form.php" enctype = "multipart/form-data">
+            <label for = "firstname">First Name</label>
+            <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." maxlength = "20">
+            <label for = "lastname">Last Name</label>
+            <input type = "text" id = "lName" name = "lName" placeholder = "Your last name.." maxlength = "20">
+            <label for = "fullname">Full Name</label>
+            <input type = "text" id = "full" name = "fullName"  disabled>
+            <input type = "submit" name = "Submit">
+            <label for = "image">Upload a image</label>
+            <input type = "file" id = "image" name = "image" accept = "image/*">
+        </form>
+        <img src = "<?php
+                    if (isset($_POST['Submit'])) {
+                        echo $fileDestination;
+                    }
+            ?>" class = "myimg">
+        <p class = "check">
+        <?php
+            if (isset($_POST['Submit'])) {
+                $maxLength = 20;
+                if (strlen($fName) > $maxLength || strlen($lName) > $maxLength) {
+                    echo "limit exceeds";
+                    return 0;
                 }
                 else {
-                    echo "first name and last name should be contain only alphabets";
+                    echo "Hello $fullName";
                 }
-        }
-    ?>
-    </p> 
+            }
+        ?>
+        </p> 
     </div>
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="./JS/script.js"></script>
 </body>
 </html>
