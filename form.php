@@ -52,77 +52,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form</title>
-    <link rel = "stylesheet" href = "style.css">
+    <link rel = "stylesheet" href = "./CSS/style.css">
 </head>
 <body>
     <div>
-    <form method = "post" action = "form.php" enctype = "multipart/form-data">
-        <label for = "firstname">First Name</label>
-        <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." maxlength = "20">
-        <label for = "lastname">Last Name</label>
-        <input type = "text" id = "lName" name = "lName" placeholder = "Your last name.." maxlength = "20">
-        <label for = "fullname">Full Name</label>
-        <input type = "text" id = "full" name = "fullName"  disabled>
-        <label for = "image">Upload a image</label>
-        <input type = "file" id = "image" name = "image" accept = "image/*">
-        <label for="marks">Enter Marks</label>
-        <textarea id="marks" name="marks" rows="4" cols="50" placeholder="SUBJECT|MARKS"></textarea>
-        <input type = "submit" name = "Submit">
-    </form>
-     <img src = "<?php
-                if (isset($_POST['Submit'])) {
-                    echo $fileDestination;
+        <form method = "post" action = "form.php" enctype = "multipart/form-data">
+            <label for = "firstname">First Name</label>
+            <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." maxlength = "20">
+            <label for = "lastname">Last Name</label>
+            <input type = "text" id = "lName" name = "lName" placeholder = "Your last name.." maxlength = "20">
+            <label for = "fullname">Full Name</label>
+            <input type = "text" id = "full" name = "fullName"  disabled>
+            <label for = "image">Upload a image</label>
+            <input type = "file" id = "image" name = "image" accept = "image/*">
+            <label for="marks">Enter Marks</label>
+            <textarea id="marks" name="marks" rows="4" cols="50" placeholder="SUBJECT|MARKS"></textarea>
+            <input type = "submit" name = "Submit">
+        </form>
+        <img src = "<?php
+                    if (isset($_POST['Submit'])) {
+                        echo $fileDestination;
+                    }
+            ?>" class = "myimg">
+        <p class = "check">
+        <?php
+            if (isset($_POST['Submit'])) {
+                $maxLength = 20;
+                if (strlen($fName) > $maxLength || strlen($lName) > $maxLength) {
+                    echo "limit exceeds";
+                    return 0;
+                    }
+                    if ($flag == 1) {
+                        echo "Hello " .  $fullName;
+                    }
+                    else {
+                        echo "first name and last name should be contain only alphabets";
+                    }
+            }
+        ?>
+        </p>
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
+            $subject = $_POST['marks'];
+            $subjectPattern = "/^[A-Za-z]+$/";
+            $marksPattern = "/^[0-9\s]+$/";
+            $subjectArray = preg_split('~\R+~', $subject);
+            echo "<table border = '1'>
+            <tr>
+            <th>Subject</th>
+            <th>Marks</th>
+            </tr>";
+            foreach ($subjectArray as $x) {
+                $subjectMarks = explode('|', $x);
+                $subjectActual = current($subjectMarks);
+                $marksActual = end($subjectMarks);
+                if (!preg_match($subjectPattern, $subjectActual)) {
+                    echo "Subject Pattern not matched";
                 }
-        ?>" class = "myimg">
-    <p class = "check">
-    <?php
-        if (isset($_POST['Submit'])) {
-            $maxLength = 20;
-            if (strlen($fName) > $maxLength || strlen($lName) > $maxLength) {
-                echo "limit exceeds";
-                return 0;
-                }
-                if ($flag == 1) {
-                    echo "Hello " .  $fullName;
+                elseif (!preg_match ($marksPattern,$marksActual)) {
+                    echo "Marks pattern not matched.";
                 }
                 else {
-                    echo "first name and last name should be contain only alphabets";
+                    echo "<tr>";
+                    echo "<td>" . $subjectActual . "</td>";
+                    echo "<td>" . $marksActual . "</td>";
+                    echo "</tr>";
                 }
-        }
-    ?>
-    </p>
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
-        $subject = $_POST['marks'];
-        $input = $_POST['marks'];
-        $subjectPattern = "/^[A-Za-z]+$/";
-        $marksPattern = "/^[0-9\s]+$/";
-        $subjectArray = preg_split('~\R+~', $subject);
-        echo "<table border = '1'>
-        <tr>
-        <th>Subject</th>
-        <th>Marks</th>
-        </tr>";
-        foreach($subjectArray as $x){
-            $subjectMarks = explode('|',$x);
-            $subjectActual = current($subjectMarks);
-            $marksActual = end($subjectMarks);
-            if (!preg_match ($subjectPattern,$subjectActual)) {
-                echo "Subject Pattern not matched";
-            }
-            elseif (!preg_match ($marksPattern,$marksActual)) {
-                echo "Marks pattern not matched.";
-            }
-            else {
-                echo "<tr>";
-                echo "<td>" . $subjectActual . "</td>";
-                echo "<td>" . $marksActual . "</td>";
-                        echo "</tr>";
             }
         }
-    }
-?> 
+    ?> 
     </div>
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="./JS/script.js"></script>
 </body>
 </html>
