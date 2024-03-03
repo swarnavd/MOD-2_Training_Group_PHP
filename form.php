@@ -1,11 +1,11 @@
 <?php
     $fullName = "";
     $trimmed = "";
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset ($_POST['Submit'])) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
         $fName = $_POST['fName'];
         $lName = $_POST['lName'];
         $fullName = $fName." ".$lName;
-        $trimmed = preg_replace($namePattern, " " , $fullName);
+        $trimmed = preg_replace($namePattern, " " ,$fullName);
     }
 ?>
 <!DOCTYPE html>
