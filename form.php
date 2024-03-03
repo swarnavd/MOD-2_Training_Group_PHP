@@ -1,16 +1,12 @@
 <?php
     $fullName = "";
-    $flag = 0;
     $trimmed = "";
     $namePattern = '/^[a-zA-Z]+$/';
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
         $fName = $_POST['fName'];
         $lName = $_POST['lName'];
-        $fullName = $fName." ".$lName;
+        $fullName = $fName . " " . $lName;
         $trimmed = preg_replace($namePattern, " ", $fullName);
-        if (preg_match($namePattern,$fName) && preg_match($namePattern,$lName)) {
-            $flag = 1;
-        }
     }
 ?>
 <?php
@@ -58,9 +54,9 @@
     <div>
         <form method = "post" action = "form.php" enctype = "multipart/form-data">
             <label for = "firstname">First Name</label>
-            <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." maxlength = "20">
+            <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." pattern="[A-Za-z]+" maxlength = "20">
             <label for = "lastname">Last Name</label>
-            <input type = "text" id = "lName" name = "lName" placeholder = "Your last name.." maxlength = "20">
+            <input type = "text" id = "lName" name = "lName" placeholder = "Your last name.." pattern="[A-Za-z]+" maxlength = "20">
             <label for = "fullname">Full Name</label>
             <input type = "text" id = "full" name = "fullName"  disabled>
             <label for = "image">Upload a image</label>
@@ -82,12 +78,9 @@
                     echo "limit exceeds";
                     return 0;
                     }
-                    if ($flag == 1) {
-                        echo "Hello " .  $fullName;
-                    }
-                    else {
-                        echo "first name and last name should be contain only alphabets";
-                    }
+                else {
+                    echo "Hello $fullName";
+                }
             }
         ?>
         </p>
