@@ -1,6 +1,5 @@
 <?php
     $fullName = "";
-    $flag = 0;
     $trimmed = "";
     $namePattern = '/^[a-zA-Z]+$/';
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
@@ -8,9 +7,6 @@
         $lName = $_POST['lName'];
         $fullName = $fName." ".$lName;
         $trimmed = preg_replace($namePattern, " ", $fullName);
-        if (preg_match($namePattern,$fName) && preg_match($namePattern,$lName)) {
-            $flag = 1;
-        }
     }
 ?>
 <?php
@@ -23,17 +19,18 @@
         $fileTmpName = $_FILES['image']['tmp_name'];
         $fileSize = $_FILES['image']['size'];
         $allowed = array('jpg','jpeg','png');
-        $fileExt = explode('.',$fileName);
+        $fileExt = explode('.', $fileName);
         $fileActualExt = strtolower(end($fileExt));
+
         if (in_array($fileActualExt,$allowed)) {
-            if ($fileError===0) {
+            if ($fileError === 0) {
                 if ($fileSize>50000000) {
                     echo "file is too big";
                 }
                 else {
-                    $newFile=uniqid('',true).".".$fileActualExt;
+                    $newFile=uniqid('', true). "." . $fileActualExt;
                     $fileDestination='uploads/'.$newFile;
-                    move_uploaded_file($fileTmpName,$fileDestination);
+                    move_uploaded_file($fileTmpName, $fileDestination);
                 }
             }
             else {
@@ -48,10 +45,11 @@
 <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
         $phoneNumber = $_POST['phoneNumber'];
-        $numberPattern="/^\+91\s?\d{10}$/";
-        $phFlag=0;
+        $numberPattern = "/^\+91\s?\d{10}$/";
+        $phFlag = 0;
+        
         if (preg_match($numberPattern,$phoneNumber)) {
-            $phFlag=1;
+            $phFlag = 1;
         }
     }
 ?>
@@ -93,12 +91,9 @@
                     echo "limit exceeds";
                     return 0;
                     }
-                    if ($flag == 1) {
-                        echo "Hello " .  $fullName;
-                    }
-                    else {
-                        echo "first name and last name should be contain only alphabets";
-                    }
+                else {
+                    echo "Hello $fullName";
+                }
             }
         ?>
         </p>
@@ -120,7 +115,7 @@
                 if (!preg_match($subjectPattern, $subjectActual)) {
                     echo "Subject Pattern not matched";
                 }
-                elseif (!preg_match ($marksPattern,$marksActual)) {
+                elseif (!preg_match ($marksPattern, $marksActual)) {
                     echo "Marks pattern not matched.";
                 }
                 else {
