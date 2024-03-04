@@ -38,6 +38,14 @@
         }
     ?>
     </p> 
+    <p class = "greetings">
+        <?php
+            $namePattern = '/^[a-zA-Z]+$/';
+            if (preg_match($namePattern, $fName) && preg_match($namePattern, $lName)) {
+                echo "Hello $fullName";
+            }
+        ?>
+    </p>
     </div>
     <script type="text/javascript" src="./JS/script.js"></script>
 </body>
