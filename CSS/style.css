@@ -39,3 +39,18 @@ div {
 table {
   width: 100%;
 }
+.red {
+  color: red;
+  font-weight: 700;
+}
+h1 {
+  color: red;
+  font-size: 24px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-20%);
+}
+.green {
+  color: green;
+  font-weight: 700;
+}
