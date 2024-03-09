@@ -1,15 +1,15 @@
 <?php
-  require 'validation.php';
   require 'vendor/autoload.php';
+  require 'validation.php';
+  use Dotenv\Dotenv;
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\Exception;
-  use PHPMailer\PHPMailer\SMTP;
-  use Dotenv\Dotenv;
   $dotenv = Dotenv::createImmutable(__DIR__);
-  $dotenv -> load();
+  $dotenv->load();
   // Storing the user name and password from .env file.
   $user = $_ENV["username"];
   $psw = $_ENV["password"];
+  // echo $user;
   // Checking the email format.
   if (!$ob->valid($_POST['email'])) {
     echo "Invalid email format.";
@@ -32,9 +32,9 @@
         $mail->addAddress($_POST['email']);
         
         $mail->isHTML(true);                                  
-        $mail->Subject = 'Subject ' . $i;
-        $mail->Body    = 'Assignment 2 ';
-        $mail->AltBody = "Thank you for your submission";
+        $mail->Subject = 'Subject ';
+        $mail->Body    = "Thank you for your submission";
+        
         // Sending email.
         $mail->send();
         echo "Mail has been sent successfully!";
@@ -45,6 +45,5 @@
       echo "Message could not be sent. Mailer Error: $mail->ErrorInfo";
     }
   }
-
   }
   ?>

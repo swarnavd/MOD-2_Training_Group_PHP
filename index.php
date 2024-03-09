@@ -9,7 +9,7 @@
 <body>
     <div>
       <form method = "post" action="mail.php">
-          Enter your mail:<input type = "email" name="email" placeholder="enter recipient's email"><br>
+          Enter your mail:<input type = "text" name="email" placeholder="enter recipient's email"><br>
           <input type="submit" name="submit" value="submit">
       </form>
     </div>
