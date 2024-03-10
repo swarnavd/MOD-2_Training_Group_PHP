@@ -39,16 +39,15 @@
                     </div>
             <?php
                 }
+                  else {
+                    header("location:login.php");
+                  }
             ?>
         <div class="logout-div">
-        <a href="logout.php" class="logout">
-          Log out
-        </a>
+          <a href="logout.php" class="logout">
+            Log out
+          </a>
         </div>
-        
     </div>
-    
-    
-    
 </body>
 </html>
