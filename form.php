@@ -8,7 +8,7 @@
 </head>
 <body>
     <div>
-        <form method = "post" action = "pdf.php" enctype = "multipart/form-data">
+        <form method = "post" action = "result.php" enctype = "multipart/form-data">
             <label for = "firstname">First Name</label>
             <input type = "text" id = "fName" name = "fName" placeholder = "Your name.." pattern="[A-Za-z]+"  maxlength= "20">
             <label for = "lastname">Last Name</label>
