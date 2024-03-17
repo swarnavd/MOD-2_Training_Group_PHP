@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="./CSS/style.css">
 </head>
 <body>
+  <?php
+  session_start();
+  if (isset($_SESSION['uname'])) {
+    header('location:welcome.php');
+  }
+  ?>
   <form action="./welcome.php" method="post">
     <div class="imgcontainer">
       <img src="./CSS/img_avatar2 (1).png" alt="Avatar" class="avatar">
