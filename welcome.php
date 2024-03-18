@@ -4,13 +4,12 @@ $uname = "swarnav";
 $psw = "admin";
 if (isset($_POST['Submit'])) {
   if ($_POST['uname'] == $uname && $_POST['psw'] == $psw) {
-    $_SESSION['uname'] = $uname;
+    $_SESSION['flag'] = 1;
   } 
   else {
     header('location:login.php');
   }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,30 +22,27 @@ if (isset($_POST['Submit'])) {
 <body>
   <div class="welcome">
     <h1 class="greet">
-      <?php
-      if (isset($_SESSION['uname'])) {
-        echo "Welcome " . $_SESSION['uname'];
-      ?>
-    </h1>
-    <div class="questions">
-      <a href="q1.php">Question 1</a>
-      <a href="q2.php">Question 2</a>
-      <a href="q3.php">Question 3</a>
-      <a href="q4.php">Question 4</a>
-      <a href="q5.php">Question 5</a>
-      <a href="q6.php">Question 6</a>
-    </div>
-  <?php
-      }
-      else {
-        header("location:login.php");
-      }
-  ?>
-  <div class="logout-div">
-    <a href="logout.php" class="logout">
-      Log out
-    </a>
-  </div>
+      <?php if (isset($_SESSION['flag'])) : ?>
+        <h1> Welcome  <?= $uname ?> </h1>
+        </h1>
+        <div class="questions">
+          <a href="q1.php">Question 1</a>
+          <a href="q2.php">Question 2</a>
+          <a href="q3.php">Question 3</a>
+          <a href="q4.php">Question 4</a>
+          <a href="q5.php">Question 5</a>
+          <a href="q6.php">Question 6</a>
+        </div>
+      <?php else : ?>
+        <?php header("location:login.php") ;
+        exit(); 
+        ?>
+      <?php endif; ?>
+      <div class="logout-div">
+        <a href="logout.php" class="logout">
+          Log out
+        </a>
+      </div>
   </div>
 </body>
 </html>

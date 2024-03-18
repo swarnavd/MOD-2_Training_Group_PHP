@@ -9,20 +9,20 @@
 <body>
   <?php
   session_start();
-  if (isset($_SESSION['uname'])) {
+  if (isset($_SESSION['flag'])) {
     header('location:welcome.php');
   }
   ?>
-  <form action="./welcome.php" method="post">
-    <div class="imgcontainer">
-      <img src="./CSS/img_avatar2 (1).png" alt="Avatar" class="avatar">
+  <form action = "./welcome.php" method = "post">
+    <div class = "imgcontainer">
+      <img src = "./CSS/img_avatar2 (1).png" alt = "Avatar" class = "avatar">
     </div>
-    <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-      <button type="submit" name='Submit'>Login</button>
+    <div class = "container">
+      <label for = "uname"><b>Username</b></label>
+      <input type = "text" placeholder = "Enter Username" name="uname" required>
+      <label for = "psw"><b>Password</b></label>
+      <input type = "password" placeholder="Enter Password" name="psw" required>
+      <button type = "submit" name = 'Submit'>Login</button>
     </div>
   </form>
 </body>
