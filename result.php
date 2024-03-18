@@ -10,7 +10,6 @@
     $lName = $_POST['lName'];
     $fullName = $fName . " " . $lName;
     $trimmed = preg_replace($namePattern, " ", $fullName);
-
     $fileDestination = "";
     $file = $_FILES['image'];
     $fileName = $_FILES['image']['name'];
@@ -57,79 +56,45 @@
     $marksPattern = "/^[0-9\s]+$/";
     // Splitting the whole array based on line breaks occur or not.
     $subjectArray = preg_split('~\R+~', $subject);
-
+    if (isset($_POST['Submit'])) {
+      $maxLength = 20;
+      // If numbers of character exceeds from predefined array length.
+      if (strlen($fName) > $maxLength || strlen($lName) > $maxLength) {
+        array_push($errorArray, "Limit exceeds");
+      } 
+      // If first name or last name contains other than alphabets.
+      if (!preg_match($namePattern, $fName) || !preg_match($namePattern, $lName)) {
+        $nameErr = "Name error exist in your submission.";
+        array_push($errorArray, $nameErr);
+      }
+      // If phone number doesn't follow the indian valid format.
+      if(!$phFlag) {
+        $phError = "Error exists in Phone number format";
+        array_push($errorArray,$phError);
+      }
+      // Checks if subeject and marks follows the predefined pattern or not.
+      foreach ($subjectArray as $x) {
+        $subjectMarks = explode('|', $x);
+        $subjectActual = current($subjectMarks);
+        $marksActual = end($subjectMarks);
+        if (!preg_match($subjectPattern, $subjectActual) || (!preg_match($marksPattern, $marksActual))) {
+          $reportErr = "Error exists in marks or subject format";
+          // If format of inputing data is wrong then push a error message in error message array.
+          array_push($errorArray, $reportErr);
+        }
+      }
+    }
   }
   ?>
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./CSS/style.css">
-  </head>
-  <body>
-    <div>
-      <p class="check">
-        <?php
-        // This whole block checks if there is any error in input data.
-        if (isset($_POST['Submit'])) {
-          $maxLength = 20;
-          // If numbers of character exceeds from predefined array length.
-          if (strlen($fName) > $maxLength || strlen($lName) > $maxLength) {
-            array_push($errorArray, "Limit exceeds");
-          } 
-          // If first name or last name contains other than alphabets.
-          if (!preg_match($namePattern, $fName) || !preg_match($namePattern, $lName)) {
-            $nameErr = "Name error exist in your submission.";
-            array_push($errorArray, $nameErr);
-          }
-          // If phone number doesn't follow the indian valid format.
-          if(!$phFlag) {
-            $phError = "Error exists in Phone number format";
-            array_push($errorArray,$phError);
-          }
-          // Checks if subeject and marks follows the predefined pattern or not.
-          foreach ($subjectArray as $x) {
-            $subjectMarks = explode('|', $x);
-            $subjectActual = current($subjectMarks);
-            $marksActual = end($subjectMarks);
-            if (!preg_match($subjectPattern, $subjectActual) || (!preg_match($marksPattern, $marksActual))) {
-              $reportErr = "Error exists in marks or subject format";
-              // If format of inputing data is wrong then push a error message in error message array.
-              array_push($errorArray, $reportErr);
-            }
-          }
-        }
-        ?>
-      </p>
-      <?php
-      if (isset($_POST['Submit'])) {
-          // If error message array's length is zero then it contains no error and displays the data to users.
-          if (count($errorArray) == 0) {
-            // header('location:pdf.php') ;
-            require 'pdf.php';
-            } 
-        
-
-       
-             // If length of errorArray is more than 0 then there is error in input data so it shows only specific error messages.
-          else {
-      ?>
-            <h1>ERROR!</h1>
-            <ul>
-              <?php
-              // Prints error messages in list format.
-                for ($x = 0; $x < count($errorArray); $x++) {
-              ?>
-                  <li class="red"><?= $errorArray[$x] ?></li>
-              <?php
-                }
-          }
-        }
-              ?>
-            </ul>
-      
-  </div>
-</body>
-</html>
+  <?php
+  if (isset($_POST['Submit'])) {
+    // If error message array's length is zero then it contains no error and displays the data to users.
+    if (count($errorArray) == 0) {
+      // header('location:pdf.php') ;
+      require 'pdf.php';
+      } 
+    else {
+      header('location:error.php');
+    }
+    }
+  ?>
