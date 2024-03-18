@@ -7,16 +7,14 @@ use PHPMailer\PHPMailer\Exception;
 /**
  * A class used for sending email to recipient;
  */
-class mail
-{
+class Mail {
   /**
    * A function used for sending email using phpmailer package.
    *
    * @return void
    */
-  public function mailSet()
-  {
-    $ob = new validation();
+  public function mailSet() {
+    $ob = new Validation();
     $dotenv = Dotenv::createImmutable(__DIR__);
     $dotenv->load();
     // Storing user name and password from .env file.
@@ -25,7 +23,7 @@ class mail
     // If email format is not valid then throws a error message.
     if (!$ob->valid($_POST['email'])) {
       $message = "Invalid email format.";
-      header('location:index.php?message=' . $message);
+      echo $message;
     } 
     else {
       if (isset($_POST['submit'])) {
@@ -33,12 +31,12 @@ class mail
         $mail = new PHPMailer(TRUE);
         try {
           $mail->isSMTP();
-          $mail->Host       = 'smtp.gmail.com';
-          $mail->SMTPAuth   = true;
-          $mail->Username   = $user;
-          $mail->Password   = $psw;
+          $mail->Host = 'smtp.gmail.com';
+          $mail->SMTPAuth = true;
+          $mail->Username = $user;
+          $mail->Password = $psw;
           $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-          $mail->Port       = 465;
+          $mail->Port = 465;
           // Adding sender's email address.
           $mail->setFrom($user);
           // Adding email address of recipient's mail.          
@@ -46,12 +44,11 @@ class mail
           $mail->isHTML(true);
           $mail->Subject = 'Subject ';
           $mail->Body    = "Thank you for your submission";
-
           // Sending email.
           $mail->send();
           if ($mail->send()) {
-            $message = "Invalid email format.";
-            header('location:index.php?message=' . $message);
+            $message = "Mail send succesfully.";
+            echo $message;
           }
         }
         // Exception handling done here.
@@ -62,5 +59,4 @@ class mail
     }
   }
 }
-$obj = new mail();
-$obj->mailSet();
+

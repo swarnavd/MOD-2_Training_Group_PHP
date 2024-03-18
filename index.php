@@ -15,7 +15,7 @@
         echo $_GET['message'];
     }
     ?>
-      <form method = "post" action="mail.php">
+      <form method = "post" action="mailSend.php">
           Enter your mail:<input type = "text" name="email" placeholder="enter recipient's email"><br>
           <input type="submit" name="submit" value="submit">
       </form>
