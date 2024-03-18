@@ -9,15 +9,17 @@ $apiKey = $_ENV["apiKey"];
 $errorArray = [];
 $fullName = "";
 $trimmed = "";
-// Storing regex for checking.
+/* Storing regex for checking that first name or last name only contains alphabe
+t or not.*/
 $namePattern = '/^[a-zA-Z]+$/';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
   $fName = $_POST['fName'];
   $lName = $_POST['lName'];
   $fullName = $fName . " " . $lName;
+  /* If any character other than alphabet appears in fullname,then it 
+  will replace those special characters.*/ 
   $trimmed = preg_replace($namePattern, " ", $fullName);
-
   $fileDestination = "";
   $file = $_FILES['image'];
   $fileName = $_FILES['image']['name'];
@@ -63,14 +65,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
   $subject = $_POST['marks'];
   $subjectPattern = "/^[A-Za-z]+$/";
   $marksPattern = "/^[0-9\s]+$/";
-
   // Splitting the whole array based on line breaks occur or not.
   $subjectArray = preg_split('~\R+~', $subject);
+
   // Storing email address from input field.
   $email = $_POST['email'];
-  // Initializing Curl session.
+  //Initializing Curl session.
   $ch = curl_init();
-  // Setting option and value.
+  //Setting option and value.
   curl_setopt($ch, CURLOPT_URL, 'https://emailvalidation.abstractapi.com/v1/?api_key=' . $apiKey .'&email=' . $email);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
   $response = curl_exec($ch);
@@ -90,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
 </head>
 <body>
   <div>
-    <p class="check">
+    <p class = "check">
       <?php
       // This whole block checks if there is any error in input data.
       if (isset($_POST['Submit'])) {
@@ -109,9 +111,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
           $phError = "Error exists in Phone number format";
           array_push($errorArray, $phError);
         }
+
         if ($data['deliverability'] == 'UNKNOWN' || !$data['is_valid_format'] || !$data['is_disposable_email']) {
           array_push($errorArray,"Email address is not valid");
         } 
+
         // Checks if subeject and marks follows the predefined pattern or not.
         foreach ($subjectArray as $x) {
           $subjectMarks = explode('|', $x);
@@ -127,11 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
       }
       ?>
     </p>
-    <?php
-    if (isset($_POST['Submit'])) {
-      // If error message array's length is zero then it contains no error and displays the data to users.
-      if (count($errorArray) == 0) {
-    ?>
+    <?php if (isset($_POST['Submit'])):?>
+      <?php if (count($errorArray) == 0):?>
         <p class = "green">Hello <?= $fullName ?></p>
         <img src = "<?php if (isset($_POST['Submit'])) {
                     echo $fileDestination;
@@ -141,44 +142,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['Submit'])) {
             <th>Subject</th>
             <th>Marks</th>
           </tr>
-          <?php
-          if (isset($_POST['Submit'])) {
-            // Prints the subject and marks in table format.
-            foreach ($subjectArray as $x) {
+          <?php if (isset($_POST['Submit'])):?>
+            <?php foreach($subjectArray as $x):?> 
+              <?php
               $subjectMarks = explode('|', $x);
               $subjectActual = current($subjectMarks);
               $marksActual = end($subjectMarks);
-          ?>
+              ?>
               <tr class = "green">
                 <td> <?= $subjectActual ?> </td>
                 <td> <?= $marksActual ?></td>
               </tr>
-            <?php
-            }
-            ?>
+              <?php endforeach ?>
+            <?php endif ?>
             <p class = "green">Number format is valid.</p>
             <p class = "green">Email id is valid.</p>
-          <?php
-          }
-        } 
-        // If length of errorArray is more than 0 then there is error in input data so it shows only specific error messages.
-        else {
-          ?>
+          <?php endif ?>
           <h1>ERROR!</h1>
           <ul>
-            <?php
-            // Prints error messages in list format.
-            for ($x = 0; $x < count($errorArray); $x++) {
-            ?>
+            <?php for ($x = 0; $x < count($errorArray); $x++):?>
               <li class = "red"><?= $errorArray[$x] ?></li>
-            <?php
-            }
-            ?>
+            <?php endfor ?>
           </ul>
-      <?php
-        }
-      }
-      ?>
+        <?php endif; ?>
   </div>
 </body>
 </html>
