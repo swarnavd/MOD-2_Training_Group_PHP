@@ -1,6 +1,6 @@
 <?php
 require 'Apicall.php';
-require 'index.php';
+require 'demo.php';
 /**
  * A class to store all the data from guven link.
  * 
