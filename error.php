@@ -1,43 +1,24 @@
-<?php
-require 'result.php';
-?>
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./CSS/style.css">
-  </head>
-  <body>
-    <div>
-      <p class="check">
-        <?php
-        // This whole block checks if there is any error in input data.
-        
-        ?>
-      </p>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./CSS/style.css">
+</head>
+<body>
+  <div>
+    <h1>ERROR!</h1>
+    <ul>
       <?php
-      
-        
-
-       
-             // If length of errorArray is more than 0 then there is error in input data so it shows only specific error messages.
-          
+      // Prints error messages in list format.
+      for ($x = 0; $x < count($errorArray); $x++) {
       ?>
-            <h1>ERROR!</h1>
-            <ul>
-              <?php
-              // Prints error messages in list format.
-                for ($x = 0; $x < count($errorArray); $x++) {
-              ?>
-                  <li class="red"><?= $errorArray[$x] ?></li>
-              <?php
-                }
-         
-              ?>
-            </ul>
-      
+        <li class="red"><?= $errorArray[$x] ?></li>
+      <?php
+      }
+      ?>
+    </ul>
   </div>
 </body>
 </html>

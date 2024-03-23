@@ -94,7 +94,7 @@
       require 'pdf.php';
       } 
     else {
-      header('location:error.php');
+      require 'error.php';
     }
     }
   ?>

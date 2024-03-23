@@ -39,3 +39,8 @@ input[type=text], select {
   table {
     width: 100%;
   }
+  .red,h1 {
+    color: red;
+    font-weight: 800;
+    font-size : 24px;
+  }
