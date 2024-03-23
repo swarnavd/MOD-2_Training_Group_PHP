@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 500px;
+    margin: 100px auto;
+  }
+  form {
+    border: 3px solid #f1f1f1;
+  }
+  input[type=text],
+  input[type=password] {
+    width: 100%;
+    padding: 12px 4px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  .button {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+  .button:hover {
+    opacity: 0.8;
+  }
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+  }
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+  }
+  img.avatar {
+    width: 40%;
+    border-radius: 50%;
+  }
+  .container {
+    padding: 16px;
+  }
+  span.psw {
+    float: right;
+    padding-top: 16px;
+  }
+  .btn-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    a {
+      border-radius: 50px;
+      text-align: center;
+      text-decoration: none;
+    }
+    a:nth-child(1) {
+      width: 20%;
+    }
+    a:nth-child(2) {
+      width: 30%;
+    }
+  }
+
+
+    #message {
+      display: none;
+      background: #f1f1f1;
+      color: #000;
+      position: relative;
+      padding: 20px;
+      margin-top: 10px;
+    }
+
+    #message p {
+      padding: 10px 35px;
+      font-size: 18px;
+    }
+    #mail {
+      display: none;
+        background: #f1f1f1;
+        color: #000;
+        position: relative;
+        padding: 20px;
+        margin-top: 10px;
+    }
+    #mail p {
+      padding: 10px 35px;
+        font-size: 18px;
+    }
+
+    /* Add a green text color and a checkmark when the requirements are right */
+    .valid {
+      color: green;
+    }
+
+    .valid:before {
+      position: relative;
+      left: -35px;
+      content: '\2713';
+    }
+
+    /* Add a red text color and an "x" icon when the requirements are wrong */
+    .invalid {
+      color: red;
+    }
+
+    .invalid:before {
+      position: relative;
+      left: -35px;
+      content: '\2716';
+    }
+
